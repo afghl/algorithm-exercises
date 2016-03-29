@@ -24,6 +24,21 @@ TreePtr createTree(ElementType element){
 	return tree;
 }
 
+TreePtr find(TreePtr tree, ElementType element) {
+  if(!tree) return NULL;
+  if(tree->element == element) return tree;
+  if(tree->element < element) return find(tree->right, element);
+  if(tree->element > element) return find(tree->left, element);
+}
+
+void inOrderTraversal(TreePtr tree) {
+  if(tree) {
+    inOrderTraversal(tree->left);
+    printf("%d ", tree->element);
+    inOrderTraversal(tree->right);
+  }
+}
+
 void appendNode(TreePtr tree, ElementType element) {
   if(tree->element == element) {
     printf("existed\n");
@@ -40,6 +55,7 @@ void appendNode(TreePtr tree, ElementType element) {
   node->element = element;
   node->left = NULL;
   node->right = NULL;
+  node->bf = 0;
   if(element < tree->element) {
     tree->left = node;
   }
@@ -48,18 +64,77 @@ void appendNode(TreePtr tree, ElementType element) {
   }
 }
 
-TreePtr find(TreePtr tree, ElementType element) {
-  if(!tree) return NULL;
-  if(tree->element == element) return tree;
-  if(tree->element < element) return find(tree->right, element);
-  if(tree->element > element) return find(tree->left, element);
+// 顺时针, 左子树向右转
+void rightRotate(TreePtr *tree) {
+  TreePtr leftChild = (*tree)->left;
+  (*tree)->left = leftChild->right;
+  leftChild->right = (*tree);
+  (*tree) = leftChild;
 }
 
-void inOrderTraversal(TreePtr tree) {
-	if(tree) {
-		inOrderTraversal(tree->left);
-		printf("%d ", tree->element);
-		inOrderTraversal(tree->right);
+// 逆时针，右子树向左转
+void leftRotate(TreePtr *tree) {
+  TreePtr rightChild = (*tree)->right;
+  (*tree)->right = rightChild->left;
+  rightChild->left = (*tree);
+  (*tree) = rightChild;
+}
+
+// 传入的tree应该是bf为2的树，
+// 则左子树深度比右子树深度高2。
+//1. 左子树是否需要左转。 2. 1之后的再右转。
+void leftBalance (TreePtr *tree) {
+  TreePtr subRightChild;
+  TreePtr leftChild = (*tree)->left;
+  // 看看左子树是否需要调整
+  switch (leftChild->bf) {
+    case 1: // 不平衡节点位于tree的左节点的左节点。
+      (*tree)->bf = leftChild->bf = 0;
+      leftRotate(tree);
+    case -1: // 不平衡节点位于tree的左节点的右节点。
+      subRightChild = (*tree)->left->right;
+      // 调整三个节点的bf
+      if(subRightChild->bf == 1) {
+        (*tree)->bf = 1;
+        leftChild->bf = 0;
+      } else if(subRightChild->bf == 0) {
+        (*tree)->bf = leftChild->bf = 0;
+      } else if(subRightChild->bf == -1) {
+        (*tree)->bf = 0;
+        leftChild->bf = 1;
+      }
+      subRightChild->bf = 0;
+      leftRotate(&(*tree)->left);
+      rightRotate(tree);
+  }
+}
+
+void rightBalance(TreePtr *tree) {
+	TreePtr subLeftChild;
+  TreePtr rightChild = (*tree)->right;
+	switch(rightChild->bf) { /*  检查T的右子树的平衡度，并作相应平衡处理 */
+  	case -1: /*  新结点插入在T的右孩子的右子树上，要作单左旋处理 */
+  	  (*tree)->bf = rightChild->bf = 0;
+  	  leftRotate(tree);
+  	  break;
+	  case 1: /*  新结点插入在T的右孩子的左子树上，要作双旋处理 */
+      subLeftChild = rightChild->left;
+		  switch(subLeftChild->bf) { /*  修改T及其右孩子的平衡因子 */
+			case -1:
+        (*tree)->bf= 1;
+  	  	rightChild->bf= 0;
+			  break;
+			case 0:
+        (*tree)->bf = rightChild->bf = 0;
+ 			  break;
+			case 1:
+        (*tree)->bf = 0;
+				rightChild->bf = -1;
+				break;
+		}
+		  subLeftChild->bf = 0;
+		  rightRotate(&(*tree)->right);
+		  leftRotate(tree); /*  对T作左旋平衡处理 */
 	}
 }
 
@@ -78,4 +153,13 @@ int main(){
   node = find(tree, 6);
   printf("%d ", node->element);
   printf("\n-------------------\n");
+  printf("\n-------rightrotate------------\n");
+  rightRotate(&tree);
+  rightRotate(&tree);
+  inOrderTraversal(tree);
+  printf("\n-------leftRotate---------------\n");
+  leftRotate(&tree);
+  leftRotate(&tree);
+  inOrderTraversal(tree);
+
 }
