@@ -48,6 +48,13 @@ void appendNode(TreePtr tree, ElementType element) {
   }
 }
 
+TreePtr find(TreePtr tree, ElementType element) {
+  if(!tree) return NULL;
+  if(tree->element == element) return tree;
+  if(tree->element < element) return find(tree->right, element);
+  if(tree->element > element) return find(tree->left, element);
+}
+
 void inOrderTraversal(TreePtr tree) {
 	if(tree) {
 		inOrderTraversal(tree->left);
@@ -58,13 +65,17 @@ void inOrderTraversal(TreePtr tree) {
 
 int main(){
   TreePtr tree = createTree(5);
+  TreePtr node;
   appendNode(tree, 4);
   appendNode(tree, 7);
   appendNode(tree, 6);
   appendNode(tree, 1);
   appendNode(tree, 2);
-  appendNode(tree, 3);  
+  appendNode(tree, 3);
 
   inOrderTraversal(tree);
-
+  printf("\n-------------------\n");
+  node = find(tree, 6);
+  printf("%d ", node->element);
+  printf("\n-------------------\n");
 }
