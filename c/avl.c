@@ -21,6 +21,7 @@ TreePtr createTree(ElementType element){
   tree->element = element;
   tree->left = NULL;
   tree->right = NULL;
+  tree->bf = 0;
 	return tree;
 }
 
@@ -90,7 +91,8 @@ void leftBalance (TreePtr *tree) {
   switch (leftChild->bf) {
     case 1: // 不平衡节点位于tree的左节点的左节点。
       (*tree)->bf = leftChild->bf = 0;
-      leftRotate(tree);
+      rightRotate(tree);
+      break;
     case -1: // 不平衡节点位于tree的左节点的右节点。
       subRightChild = (*tree)->left->right;
       // 调整三个节点的bf
@@ -147,6 +149,7 @@ Status insertAVL(TreePtr *tree, ElementType element, Status *taller) { // taller
     (*tree)->left = (*tree)->right = NULL;
     (*tree)->bf = 0;
     *taller = TRUE;  //新加一个节点， 一定taller?
+    printf("------插入了节点%d-------\n", element);
     return TRUE;
   }
   // 遍历tree
@@ -160,7 +163,10 @@ Status insertAVL(TreePtr *tree, ElementType element, Status *taller) { // taller
     if(!insertAVL(&(*tree)->left, element, taller)) return FALSE;
     // 插在了 tree的左节点上。
     // 现检查tree的bf，并根据bf调整旋转tree，改taller。
+
     if(*taller) {
+      printf("\n---------taller----------\n");
+      printf("节点：%d， 调整前bf：%d\n", (*tree)->element, (*tree)->bf);
       switch ((*tree)->bf) {
         // 原来是左子树较深， 插在了左， 所以要转。
         case 1:
@@ -178,7 +184,9 @@ Status insertAVL(TreePtr *tree, ElementType element, Status *taller) { // taller
           *taller = FALSE;
           break;
       }
-    } else {
+      printf("节点：%d， 调整后bf：%d\n", (*tree)->element, (*tree)->bf);
+    }
+  } else {
       // 递归插入
       if(!insertAVL(&(*tree)->right, element, taller)) return FALSE;
       // 插在了右节点上。
@@ -193,25 +201,31 @@ Status insertAVL(TreePtr *tree, ElementType element, Status *taller) { // taller
             *taller = TRUE;
             break;
           case -1:
-            rightRotate(tree);
+            rightBalance(tree);
             *taller = FALSE;
             break;
         }
       }
     }
-  }
   return TRUE;
 }
 
 int main(){
   TreePtr tree = createTree(5);
   Status taller = FALSE;
-  insertAVL(&tree, 4, &taller);
-  insertAVL(&tree, 3, &taller);
-  insertAVL(&tree, 2, &taller);
+  // insertAVL(&tree, 4, &taller);
+  // insertAVL(&tree, 3, &taller);
+  insertAVL(&tree, 9, &taller);
+  insertAVL(&tree, 10, &taller);
+  insertAVL(&tree, 11, &taller);
+  insertAVL(&tree, 12, &taller);
+  insertAVL(&tree, 13, &taller);
+  // insertAVL(&tree, 2, &taller);
   // insertAVL(&tree, 1, &taller);
+  // insertAVL(&tree, 0, &taller);
   inOrderTraversal(tree);
-  printf("%d\n", tree->element);
+  printf("\n-------------------\n");
+  printf("根节点=%d\n", tree->element);
   // TreePtr node;
   // appendNode(tree, 4);
   // appendNode(tree, 7);
