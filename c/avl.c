@@ -5,7 +5,7 @@
 # define TRUE 1
 
 typedef int ElementType;
-
+typedef int Status;
 // avl
 
 typedef struct TreeNode {
@@ -138,28 +138,100 @@ void rightBalance(TreePtr *tree) {
 	}
 }
 
+// 返回值为是否插入了新节点。
+Status insertAVL(TreePtr *tree, ElementType element, Status *taller) { // taller的做法是多次传递同一个int变量时， 用指针。
+  // 插入新节点
+  if (! *tree) {
+    *tree = (TreePtr)malloc(sizeof(struct TreeNode));
+    (*tree)->element = element;
+    (*tree)->left = (*tree)->right = NULL;
+    (*tree)->bf = 0;
+    *taller = TRUE;  //新加一个节点， 一定taller?
+    return TRUE;
+  }
+  // 遍历tree
+  if (element == (*tree)->element) {
+    *taller = FALSE;
+    return FALSE;
+  }
+
+  if (element < (*tree)->element) {
+    // 递归插入
+    if(!insertAVL(&(*tree)->left, element, taller)) return FALSE;
+    // 插在了 tree的左节点上。
+    // 现检查tree的bf，并根据bf调整旋转tree，改taller。
+    if(*taller) {
+      switch ((*tree)->bf) {
+        // 原来是左子树较深， 插在了左， 所以要转。
+        case 1:
+          leftBalance(tree);
+          // 转完后高度已经调整了。
+          *taller = FALSE;
+          break;
+        // 原来平衡， 插在了左， 不用转， 但要调整自己的bf。
+        case 0:
+          (*tree)->bf = 1;
+          *taller = TRUE;
+          break;
+        case -1:
+          (*tree)->bf = 0;
+          *taller = FALSE;
+          break;
+      }
+    } else {
+      // 递归插入
+      if(!insertAVL(&(*tree)->right, element, taller)) return FALSE;
+      // 插在了右节点上。
+      if(*taller) {
+        switch ((*tree)->bf) {
+          case 1:
+            (*tree)->bf = 0;
+            *taller = FALSE;
+            break;
+          case 0:
+            (*tree)->bf = -1;
+            *taller = TRUE;
+            break;
+          case -1:
+            rightRotate(tree);
+            *taller = FALSE;
+            break;
+        }
+      }
+    }
+  }
+  return TRUE;
+}
+
 int main(){
   TreePtr tree = createTree(5);
-  TreePtr node;
-  appendNode(tree, 4);
-  appendNode(tree, 7);
-  appendNode(tree, 6);
-  appendNode(tree, 1);
-  appendNode(tree, 2);
-  appendNode(tree, 3);
-
+  Status taller = FALSE;
+  insertAVL(&tree, 4, &taller);
+  insertAVL(&tree, 3, &taller);
+  insertAVL(&tree, 2, &taller);
+  // insertAVL(&tree, 1, &taller);
   inOrderTraversal(tree);
-  printf("\n-------------------\n");
-  node = find(tree, 6);
-  printf("%d ", node->element);
-  printf("\n-------------------\n");
-  printf("\n-------rightrotate------------\n");
-  rightRotate(&tree);
-  rightRotate(&tree);
-  inOrderTraversal(tree);
-  printf("\n-------leftRotate---------------\n");
-  leftRotate(&tree);
-  leftRotate(&tree);
-  inOrderTraversal(tree);
+  printf("%d\n", tree->element);
+  // TreePtr node;
+  // appendNode(tree, 4);
+  // appendNode(tree, 7);
+  // appendNode(tree, 6);
+  // appendNode(tree, 1);
+  // appendNode(tree, 2);
+  // appendNode(tree, 3);
+  //
+  // inOrderTraversal(tree);
+  // printf("\n-------------------\n");
+  // node = find(tree, 6);
+  // printf("%d ", node->element);
+  // printf("\n-------------------\n");
+  // printf("\n-------rightrotate------------\n");
+  // rightRotate(&tree);
+  // rightRotate(&tree);
+  // inOrderTraversal(tree);
+  // printf("\n-------leftRotate---------------\n");
+  // leftRotate(&tree);
+  // leftRotate(&tree);
+  // inOrderTraversal(tree);
 
 }
