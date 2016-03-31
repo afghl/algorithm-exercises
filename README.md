@@ -1,2 +1,2 @@
 # algorithm-exercises
-some algorithm exercises in java.
+some algorithm exercises in c & java.
