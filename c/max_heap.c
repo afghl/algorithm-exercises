@@ -36,13 +36,35 @@ void insert(MaxHeap h, ElementType element) {
 }
 
 ElementType deleteMax(MaxHeap h) {
-  ElementType maxElement, tmp;
+  ElementType maxElement, tmp, changeTmp;
+  int index = 1, maxChildIndex;
   maxElement = h->elements[1];
 
   //保持堆的数组特性
   tmp = h->elements[h->size];
-  h->elements[1] = tmp;
-  // TODO
+  h->size = h->size - 1;
+
+  // 拿最后一个元素替补当前根节点， 然后与下面的左右儿子比较， 找到该元素合适的位置。
+  while(1) {
+    h->elements[index] = tmp;
+    // 找到左右两儿子的较大者
+    if(h->elements[index * 2] > h->elements[index * 2 + 1]) {
+      maxChildIndex = index * 2;
+    } else {
+      maxChildIndex = index * 2 + 1;
+    }
+
+    if(maxChildIndex > h->size) break;
+
+    if(h->elements[index] < h->elements[maxChildIndex]) {
+      changeTmp = h->elements[index];
+      h->elements[index] = h->elements[maxChildIndex];
+      h->elements[maxChildIndex] = changeTmp;
+      index = maxChildIndex;
+    } else {
+      break;
+    }
+  }
   return maxElement;
 }
 
@@ -54,10 +76,19 @@ int main() {
   insert(h, 27);
   insert(h, 17);
   insert(h, 37);
+  insert(h, 35);
   for(i = 1; i < h->size + 1; i++) {
-    printf("%d\n", h->elements[i]);
+    printf("%d ", h->elements[i]);
   }
-  printf("-------------------------");
+  printf("\n-------------------------\n");
   printf("%d\n", deleteMax(h));
+  for(i = 1; i < h->size + 1; i++) {
+    printf("%d ", h->elements[i]);
+  }
+  printf("\n-------------------------\n");
+  printf("%d\n", deleteMax(h));
+  for(i = 1; i < h->size + 1; i++) {
+    printf("%d ", h->elements[i]);
+  }
   return 0;
 }
