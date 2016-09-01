@@ -50,12 +50,9 @@ int main()
     // test delete
     // success
     list = delete(list, find(list, 6));
-    printList(list);
     assert(find(list, 6) == POINT_ERROR);
-    printList(list);
-    // // fail
-    // assert(delete(list, p) == POINT_ERROR);
-    // assert(delete(list, NULL) == POINT_ERROR);
+    // fail
+    assert(delete(list, p) == POINT_ERROR);
 
 
     printf("pass\n");
