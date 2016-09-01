@@ -54,6 +54,7 @@ List insert(List l, ElementType x, Position p)
     Position tmp, head;
     PtrToNode n = (PtrToNode)malloc(sizeof(struct Node));
     n->Data = x;
+    n->Next = NULL;
 
     // 插入表头时
     if (l == p)
@@ -71,6 +72,7 @@ List insert(List l, ElementType x, Position p)
             return l;
         }
     }
+    free(n);
     printf("Wrong Position for Insertion\n");
     return POINT_ERROR;
 }
