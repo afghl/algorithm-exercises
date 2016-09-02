@@ -1,4 +1,5 @@
 #define MAXSIZE 5
+#define NotFound 0
 #define ERROR -1
 typedef enum {false, true} bool;
 typedef int ElementType;
@@ -20,3 +21,6 @@ bool Insert( List L, ElementType X, Position P );
 
 // 将位置P的元素删除并返回true。若参数P指向非法位置，则打印“POSITION P EMPTY”（其中P是参数值）并返回false。
 bool Delete( List L, Position P );
+
+// 函数BinarySearch要查找K在Tbl中的位置，即数组下标（注意：元素从下标1开始存储）。找到则返回下标，否则返回一个特殊的失败标记NotFound。
+Position BinarySearch( List Tbl, ElementType K );

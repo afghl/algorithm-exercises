@@ -39,7 +39,7 @@ bool Insert( List L, ElementType X, Position P )
         }
         L->Data[P] = X;
     }
-    L->Last = L->Last + 1;
+    L->Last++;
     return true;
 }
 
@@ -75,4 +75,30 @@ bool Delete( List L, Position P )
 
     L->Last--;
     return true;
+}
+
+// 二分查找， 前提是必须要保证list是递增有序的
+Position BinarySearch( List l, ElementType K )
+{
+    Position low = 0;
+    Position high = l->Last;
+    Position mid;
+
+    if(!l)
+        return NotFound;
+
+    while(low <= high)
+    {
+        mid = (low + high) / 2;
+
+        if (l->Data[mid] == K)
+            return mid + 1;
+
+        if (l->Data[mid] > K)
+            high = mid - 1;
+        else
+            low = mid + 1;
+    }
+
+    return NotFound;
 }
