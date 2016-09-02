@@ -10,6 +10,21 @@ void PreorderTraversal( BinTree BT ) {
 	}
 }
 
+void PreorderPrintLeaves( BinTree BT )
+{
+    if (!BT) return;
+
+    if (BT->Left == NULL && BT->Right == NULL)
+    {
+        printf(" %c", BT->Data);
+        return;
+    }
+    PreorderPrintLeaves(BT->Left);
+    PreorderPrintLeaves(BT->Right);
+}
+
+
+
 BinTree newNode(ElementType E)
 {
     BinTree t = (BinTree)malloc(sizeof(struct TNode));

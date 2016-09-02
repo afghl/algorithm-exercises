@@ -7,7 +7,7 @@ struct TNode{
     BinTree Right;
 };
 
-// 打印数
+// 打印树
 void InorderTraversal( BinTree BT );
 void PreorderTraversal( BinTree BT );
 void PostorderTraversal( BinTree BT );
@@ -19,3 +19,6 @@ BinTree Insert(BinTree BST, ElementType X);
 
 // 给定二叉树的高度。
 int GetHeight(BinTree BT);
+
+// 按照先序遍历的顺序输出给定二叉树BT的叶结点，格式为一个空格跟着一个字符。
+void PreorderPrintLeaves( BinTree BT );
