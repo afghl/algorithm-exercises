@@ -33,24 +33,31 @@ int k; //倒数第K个位置
 
 List createList()
 {
-    List l, h;
+    List l = NULL;
+    List h;
     int x;
     PtrToNode tmp;
 
     scanf("%d", &x);
-    l = (PtrToNode)malloc(sizeof(struct Node));
-    l->Data = x;
-    l->Next = NULL;
-    h = l;
-    scanf("%d", &x);
 
     while (x > -1)
     {
+
         tmp = (PtrToNode)malloc(sizeof(struct Node));
         tmp->Data = x;
         tmp->Next = NULL;
-        h->Next = tmp;
-        h = h->Next;
+
+        if (l == NULL)
+        {
+            l = tmp;
+            h = l;
+        }
+        else
+        {
+            h->Next = tmp;
+            h = h->Next;
+        }
+
         scanf("%d", &x);
     }
     return l;
@@ -61,6 +68,7 @@ PtrToNode findReverseIndex(List l)
     PtrToNode h;
     int length = 0;
     int i;
+
     for (h = l; h; h = h->Next)
         ++length;
 
