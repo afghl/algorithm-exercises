@@ -10,6 +10,24 @@ void PreorderTraversal( BinTree BT ) {
 	}
 }
 
+void InorderTraversal(BinTree BT)
+{
+    if(BT) {
+        InorderTraversal(BT->Left);
+        printf("%c ", BT->Data);
+        InorderTraversal(BT->Right);
+    }
+}
+
+void PostorderTraversal( BinTree BT )
+{
+	if(BT) {
+		PostorderTraversal(BT->Left);
+		PostorderTraversal(BT->Right);
+		printf("%c ", BT->Data);
+	}
+}
+
 void PreorderPrintLeaves( BinTree BT )
 {
     if (!BT) return;
@@ -22,8 +40,6 @@ void PreorderPrintLeaves( BinTree BT )
     PreorderPrintLeaves(BT->Left);
     PreorderPrintLeaves(BT->Right);
 }
-
-
 
 BinTree newNode(ElementType E)
 {
