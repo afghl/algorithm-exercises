@@ -34,6 +34,11 @@ typedef PtrToNode List; /* 定义单链表类型 */
 
 void printList(List l)
 {
+    if(!l)
+    {
+        printf("0 0");
+        return;
+    }
     for(; l; l = l->Next)
     {
         if (!l->Next)
@@ -161,7 +166,7 @@ int main()
 
     m = Multiple(l1, l2);
     a = AddList(l1, l2);
-    
+
     printList(m);
     printf("\n");
     printList(a);
