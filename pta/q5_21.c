@@ -52,7 +52,7 @@ int Calculate(char Ops[], int last)
         else if (op == '-') tmp = Pop() - Pop();
         else if (op == '*') tmp = Pop() * Pop();
         else if (op == '/') tmp = Pop() / Pop();
-        
+
         Push(tmp);
     }
     return Pop();
@@ -65,6 +65,7 @@ int main()
     int i, last = 0;
     char Ops[MAX];
 
+    // TODO: 不能处理超过一位数。
     while (scanf("%c", &C) != EOF && C != '\n')
     {
         if ( C == ' ')
