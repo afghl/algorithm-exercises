@@ -104,7 +104,10 @@ BinTree Delete( BinTree BST, ElementType X )
 {
 	Position tmp;
 	if (!BST)
+	{
 		printf("Not Found\n");
+		return BST;
+	}
 	// 找到该节点
 	if (BST->Data > X)
 		BST->Left = Delete(BST->Left, X);
@@ -119,19 +122,18 @@ BinTree Delete( BinTree BST, ElementType X )
 			// 将右子树最小结点替换到要删除的结点上。
 			tmp = FindMin(BST->Right);
 			BST->Data = tmp->Data;
-			// TODO: 怎么删了tmp?
-			free(tmp);
+			BST->Right = Delete(BST->Right, BST->Data);
 		}
 		// 只有右儿子结点
-		else if (!BST->Left && BST->Right)
+		else if (!BST->Left)
 		{
 			// 交换right 和 BST, 然后free
 			tmp = BST;
 			BST = BST->Right;
 			free(tmp);
 		}
-		// 只有右儿子结点
-		else if (BST->Left && !BST->Right)
+		// 只有左儿子结点
+		else if (!BST->Right)
 		{
 			tmp = BST;
 			BST = BST->Left;
@@ -140,10 +142,7 @@ BinTree Delete( BinTree BST, ElementType X )
 		// 没有儿子结点
 		else
 			free(BST);
-
-
 	}
-	Position node = BST;
 
 	return BST;
 }
