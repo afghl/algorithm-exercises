@@ -21,6 +21,7 @@ Stack CreateStack(int MaxSize)
     stack->MaxSize = MaxSize;
     return stack;
 }
+
 bool Push(Stack S,ElementType X,int Tag)
 {
     if (S->Top2 - S->Top1 == 1)
@@ -36,6 +37,7 @@ bool Push(Stack S,ElementType X,int Tag)
 
     return true;
 }
+
 ElementType Pop(Stack S,int Tag)
 {
     if (Tag == 1)
