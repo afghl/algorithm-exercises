@@ -2,9 +2,11 @@
 #include <stdio.h>
 #include "tree.h"
 
-void PreorderTraversal( BinTree BT ) {
-	if(BT) {
-		printf("%c ", BT->Data);
+void PreorderTraversal( BinTree BT )
+{
+	if (BT)
+	{
+		printf(" %c", BT->Data);
 		PreorderTraversal(BT->Left);
 		PreorderTraversal(BT->Right);
 	}
@@ -12,20 +14,43 @@ void PreorderTraversal( BinTree BT ) {
 
 void InorderTraversal(BinTree BT)
 {
-    if(BT) {
+    if (BT)
+	{
         InorderTraversal(BT->Left);
-        printf("%c ", BT->Data);
+        printf(" %c", BT->Data);
         InorderTraversal(BT->Right);
     }
 }
 
 void PostorderTraversal( BinTree BT )
 {
-	if(BT) {
+	if (BT)
+	{
 		PostorderTraversal(BT->Left);
 		PostorderTraversal(BT->Right);
-		printf("%c ", BT->Data);
+		printf(" %c", BT->Data);
 	}
+}
+
+void LevelorderTraversal( BinTree BT ) {
+    BinTree nodes[100];
+    int rear = 0, front = -1;
+    BinTree T;
+
+    if(!BT)
+        return;
+
+    nodes[rear] = BT;
+    while (rear != front)
+	{
+        T = nodes[++front];
+        printf(" %c", T->Data);
+
+        if(T->Left)
+            nodes[++rear] = T->Left;
+        if(T->Right)
+            nodes[++rear] = T->Right;
+    }
 }
 
 void PreorderPrintLeaves( BinTree BT )
@@ -43,7 +68,7 @@ void PreorderPrintLeaves( BinTree BT )
 
 BinTree newNode(ElementType E)
 {
-    BinTree t = (BinTree)malloc(sizeof(struct TNode));
+    BinTree t = (BinTree)malloc(sizeof(nodesuct TNode));
     t->Data = E;
     t->Left = t->Right = NULL;
     return t;
