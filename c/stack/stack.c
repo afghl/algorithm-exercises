@@ -23,20 +23,24 @@ Stack CreateStack(int MaxSize)
 }
 bool Push(Stack S,ElementType X,int Tag)
 {
-    if (S->Top2-S->Top1==1)
+    if (S->Top2 - S->Top1 == 1)
     {
         printf("Stack Full\n");
         return 0;
     }
-    if (Tag==1) S->Data[++(S->Top1)]=X;
-    else S->Data[--(S->Top2)]=X;
+
+    if (Tag == 1)
+        S->Data[++(S->Top1)] = X;
+    else
+        S->Data[--(S->Top2)] = X;
+
     return true;
 }
 ElementType Pop(Stack S,int Tag)
 {
-    if (Tag==1)
+    if (Tag == 1)
     {
-        if (S->Top1==-1)
+        if (S->Top1 == -1)
         {
             printf("Stack %d Empty\n",Tag);
             return ERROR;
@@ -46,11 +50,12 @@ ElementType Pop(Stack S,int Tag)
     }
     else
     {
-        if (S->Top2==S->MaxSize)
+        if (S->Top2 == S->MaxSize)
         {
             printf("Stack %d Empty\n",Tag);
             return ERROR;
         }
-        else return S->Data[(S->Top2)++];
+        else
+            return S->Data[(S->Top2)++];
     }
 }
