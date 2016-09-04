@@ -1,5 +1,4 @@
-// 5-52 两个有序链表序列的交集   (20分)
-// 已知两个非降序链表序列S1与S2，设计函数构造出S1与S2的交集新链表S3。
+// 已知两个非降序链表序列S1与S2，设计函数构造出S1与S2的并集新非降序链表S3。
 //
 // 输入格式:
 //
@@ -7,16 +6,15 @@
 //
 // 输出格式:
 //
-// 在一行中输出两个输入序列的交集序列，数字间用空格分开，结尾不能有多余空格；若新链表为空，输出NULL。
+// 在一行中输出合并后新的非降序链表，数字间用空格分开，结尾不能有多余空格；若新链表为空，输出NULL。
 //
 // 输入样例:
 //
-// 1 2 5 -1
-// 2 4 5 8 10 -1
+// 1 3 5 -1
+// 2 4 6 8 10 -1
 // 输出样例:
 //
-// 2 5
-
+// 1 2 3 4 5 6 8 10
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,6 +31,7 @@ typedef PtrToNode List; /* 定义单链表类型 */
 
 void printList(List l)
 {
+    l = l->Next;
     for(; l; l = l->Next)
     {
         if (!l->Next)
@@ -78,33 +77,32 @@ List createList()
     return l;
 }
 
-List intersectionList(List l1, List l2)
+List unionList(List l1, List l2)
 {
-    List u = NULL;
-    PtrToNode h, tmp;
-    PtrToNode i, j;
-    for (i = l1; i; i = i->Next)
+    List u = (List)malloc(sizeof(struct Node));
+    u->Next = NULL;
+    List tmp = u;
+    int m;
+
+    while (l1 != NULL && l2 != NULL)
     {
-        for (j = l2; j; j = j->Next)
+        if (l1->Data > l2->Data)
         {
-            if (i->Data == j->Data)
-            {
-                tmp = (PtrToNode)malloc(sizeof(struct Node));
-                tmp->Data = i->Data;
-                tmp->Next = NULL;
-                if (u == NULL)
-                {
-                    u = tmp;
-                    h = u;
-                }
-                else
-                {
-                    h->Next = tmp;
-                    h = h->Next;
-                }
-            }
+            tmp->Next = l2;
+            l2 = l2->Next;
         }
+        else
+        {
+            tmp->Next = l1;
+            l1 = l1->Next;
+        }
+        tmp = tmp->Next;
     }
+
+    if (l1 != NULL)
+        tmp->Next = l1;
+    else tmp->Next = l2;
+
     return u;
 }
 
@@ -113,7 +111,7 @@ int main()
     List l1, l2, u;
     l1 = createList();
     l2 = createList();
-    u = intersectionList(l1, l2);
+    u = unionList(l1, l2);
     if (u == NULL)
         printf("NULL");
     else
