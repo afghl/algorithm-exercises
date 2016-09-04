@@ -25,28 +25,12 @@ typedef struct Node *PtrToNode;
 typedef struct Node {
     ElementType Data; /* 存储结点数据 */
     PtrToNode   Next; /* 指向下一个结点的指针 */
+    PtrToNode   Prev; /* 指向上一个结点的指针 */
 } Node;
 typedef PtrToNode Position; /* 定义位置类型 */
 typedef PtrToNode List; /* 定义单链表类型 */
 
-void printList(List l)
-{
-    l = l->Next;
-    for(; l; l = l->Next)
-    {
-        if (!l->Next)
-        {
-            printf("%d", l->Data);
-        }
-        else
-        {
-            printf("%d ", l->Data);
-        }
-    }
-    printf("\n");
-}
-
-List createList()
+List createList(int N)
 {
     List l = NULL;
     List h;
@@ -55,11 +39,11 @@ List createList()
 
     scanf("%d", &x);
 
-    while (x > -1)
+    while (1)
     {
         tmp = (PtrToNode)malloc(sizeof(struct Node));
         tmp->Data = x;
-        tmp->Next = NULL;
+        tmp->Next = tmp->Prev = NULL;
 
         if (l == NULL)
         {
@@ -69,51 +53,73 @@ List createList()
         else
         {
             h->Next = tmp;
+            tmp->Prev = h;
             h = h->Next;
         }
-
+        if (!--N)
+            break;
         scanf("%d", &x);
     }
     return l;
 }
 
-List unionList(List l1, List l2)
+ElementType Median(List l1, List l2)
 {
-    List u = (List)malloc(sizeof(struct Node));
-    u->Next = NULL;
-    List tmp = u;
-    int m;
-
-    while (l1 != NULL && l2 != NULL)
+    PtrToNode h1 = l1, h2 = l2;
+    PtrToNode t1, t2;
+    int p = 0;
+    int mid;
+    // t1, t2放到链表末尾
+    while (h1 && h2)
     {
-        if (l1->Data > l2->Data)
-        {
-            tmp->Next = l2;
-            l2 = l2->Next;
-        }
-        else
-        {
-            tmp->Next = l1;
-            l1 = l1->Next;
-        }
-        tmp = tmp->Next;
+        t1 = h1;
+        t2 = h2;
+        h1 = h1->Next;
+        h2 = h2->Next;
     }
 
-    if (l1 != NULL)
-        tmp->Next = l1;
-    else tmp->Next = l2;
-
-    return u;
+    while (l1 != t1 || l2 != t2)
+    {
+        p++;
+        // 奇数次时删除最小的
+        if (p % 2 == 1)
+        {
+            if (l1 == t1)
+                l2 = l2->Next;
+            else if (l2 == t2)
+                l1 = l1->Next;
+            else if (l1->Data < l2->Data)
+                l1 = l1->Next;
+            else
+                l2 = l2->Next;
+        }
+        // 偶数次时删除最大的
+        else
+        {
+            if (l1 == t1)
+                t2 = t2->Prev;
+            else if (l2 == t2)
+                t1 = t1->Prev;
+            else if (t1->Data > t2->Data)
+                t1 = t1->Prev;
+            else
+                t2 = t2->Prev;
+        }
+    }
+    mid = t1->Data < t2->Data ? t1->Data : t2->Data;
+    return mid;
 }
 
 int main()
 {
-    List l1, l2, u;
-    l1 = createList();
-    l2 = createList();
-    u = unionList(l1, l2);
-    if (u == NULL)
-        printf("NULL");
-    else
-        printList(u);
+    int N;
+    List l1, l2;
+    ElementType M;
+    scanf("%d", &N);
+    getchar();
+    l1 = createList(N);
+    getchar();
+    l2 = createList(N);
+
+    printf("%d", Median(l1, l2));
 }
