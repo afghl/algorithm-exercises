@@ -1,8 +1,6 @@
 #define EMPTY -1
 #define OCCUPY 1
 
-typedef int Status;
-
 typedef int Position;
 typedef int ElementType;
 typedef int ValueType;
