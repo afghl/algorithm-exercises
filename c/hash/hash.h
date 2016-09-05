@@ -1,9 +1,7 @@
-// #define HASHSIZE 12
 #define EMPTY -1
 #define OCCUPY 1
 
 typedef int Status;
-int m = 0;
 
 typedef int Position;
 typedef int ElementType;
@@ -29,8 +27,9 @@ Position Find(HashTable H, ElementType Key);
 void Insert(HashTable H, ElementType Key);
 
 int hash(int key);
+int NextPrime(int size);
 
 // TODO: insert 一个value
-// void InsertValue(HashTable H, ElementType Key, ValueType Value);
+void InsertValue(HashTable H, ElementType Key, ValueType Value);
 //
 // void Delete(HashTable H, ElementType Key);

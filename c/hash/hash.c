@@ -60,5 +60,16 @@ void Insert(HashTable H, ElementType Key)
         H->TheCells[Pos].Info = OCCUPY;
         H->TheCells[Pos].Element = Key;
     }
+}
 
+void InsertValue(HashTable H, ElementType Key, ValueType Value)
+{
+    Position Pos = Find(H, Key);
+    if (H->TheCells[Pos].Info != OCCUPY)
+    {
+        // 插入！
+        H->TheCells[Pos].Info = OCCUPY;
+        H->TheCells[Pos].Element = Key;
+    }
+    H->TheCells[Pos].Value = Value;
 }
