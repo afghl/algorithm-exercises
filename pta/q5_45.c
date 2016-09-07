@@ -40,7 +40,7 @@
 #define EMPTY -1
 #define OCCUPY 1
 #define IDMAX 18
-#define TABLESIZEMAX 100000
+#define TABLESIZEMAX 10000
 
 typedef int Position;
 typedef char *KeyType;
