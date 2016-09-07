@@ -17,7 +17,6 @@ typedef struct HashTbl {
     Cell *TheCells;
 } HashTbl;
 
-
 HashTable initHashTable(int TableSize);
 
 Position Find(HashTable H, ElementType Key);

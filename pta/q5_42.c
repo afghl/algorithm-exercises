@@ -19,8 +19,73 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define EMPTY -1
+#define OCCUPY 1
+
+typedef int Position;
+typedef int KeyType;
+typedef int ValueType;
+
+typedef struct Cell {
+    int Info;
+    KeyType Key;
+    ValueType Value;
+} Cell;
+
+typedef struct HashTbl *HashTable;
+typedef struct HashTbl {
+    int TableSize;
+    Cell *TheCells;
+} HashTbl;
+
+int P;
+
+int Hash(int key) { return key % P; }
+
+HashTable initHashTable(int TableSize)
+{
+    int i;
+    HashTable H = (HashTable)malloc(sizeof(struct HashTbl));
+
+    H->TableSize = TableSize;
+    H->TheCells = (Cell *)malloc(sizeof(struct Cell) * H->TableSize);
+
+    for (i = 0; i < H->TableSize; i++)
+        H->TheCells[i].Info = EMPTY;
+
+    return H;
+}
+
+Position Find(HashTable H, KeyType Key)
+{
+    Position Pos = Hash(Key);
+    while (H->TheCells[Pos].Info != EMPTY && H->TheCells[Pos].Key != Key)
+    {
+        if (Pos < H->TableSize)
+            Pos++;
+        else
+            Pos = 0;
+    }
+
+    return Pos;
+}
+
 int main()
 {
-    
+    int N, TableSize;
+    int key;
+    scanf("%d %d", &N, &P);
+    getchar();
+    TableSize = P;
+    HashTable H = initHashTable(TableSize);
+
+    while (N--)
+    {
+        scanf("%d", &key);
+        if (N == 0)
+            printf("%d", Find(H, key));
+        else
+            printf("%d ", Find(H, key));
+    }
     return 0;
 }
