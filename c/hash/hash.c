@@ -32,6 +32,7 @@ Position Find(HashTable H, ElementType Key)
     Position CurrentPos, NewPos;
     int CNum = 0;
     NewPos = CurrentPos = Hash(Key, H->TableSize);
+    // 最终会找到一个Info为EMPTY 或 Key 一样的位置。
     while (H->TheCells[NewPos].Info != EMPTY && H->TheCells[NewPos].Element != Key)
     {
         if (++CNum % 2)
