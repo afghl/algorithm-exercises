@@ -111,7 +111,7 @@ void Floyd(MGraph G)
 
 int main()
 {
-    int N, E, i, p, j, min;
+    int N, E, i, p, j;
     VertexType n1, n2;
 
 
@@ -124,50 +124,33 @@ int main()
     }
 
     Floyd(G);
-
-
-    // 因为要打印最小编号那一只， 倒序遍历
-    for (i = G->numNodes - 1; i > -1; i--)
+    int min = INFINITY, index = N;
+    int flag = 0;
+    for (int i = 0;i < G->numNodes; i++)
     {
-        int can = 1;
-        for (j = G->numNodes - 1; j > -1; j--)
-            if (D[i][j] == INFINITY)
-                can = 0;
-        if (can)
-            min = i;
-    }
-
-    int maxx = INF, min_num = N;
-    int flag = 0;//标记是否有不能变的动物存在
-    for(i = 1; i <= N; i++)
-    {
-        int tt_max = 0;
-        for(j = 1; j <= N; j++)
+        int t = 0;
+        for (int j = 0; j < G->numNodes; j++)
         {
-            if(i!=j && D[i][j] == INF)
+            if (i != j && D[i][j] == INFINITY)
             {
                 flag = 1;
                 break;
             }
-            if(tt_max < D[i][j] && i != j)
+            if (i != j && D[i][j] > t)
             {
-                tt_max = D[i][j];
+                t = D[i][j];
             }
         }
-        if(tt_max < maxx)
+        if (t < min)
         {
-            maxx = tt_max;
-            min_num = i;
+            min = t;
+            index = i;
         }
     }
-    if(flag)
-    {
+    if (flag)
         printf("0\n");
-    }
     else
-    {
-        printf("%d %d\n",min_num,maxx);
-    }
+        printf("%d %d",index + 1,min);
 
     return 0;
 }
