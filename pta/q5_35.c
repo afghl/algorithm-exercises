@@ -52,8 +52,8 @@ void SetEdge(MGraph G, VertexType n1, VertexType n2, int p)
 
 void Dijkstra(MGraph G, VertexType v0, VertexType vf, int rescue[])
 {
-    int i, k;
-    int dist[MAXVEX], path[MAXVEX], collected[MAXVEX], total[MAXVEX], final[MAXVEX];
+    int i;
+    int dist[MAXVEX], path[MAXVEX], collected[MAXVEX], total[MAXVEX] final[MAXVEX];
     for (i = 0; i < G->numNodes; i++)
     {
         dist[i] = INFINITY;
@@ -96,7 +96,7 @@ void Dijkstra(MGraph G, VertexType v0, VertexType vf, int rescue[])
                 total[i] = total[k] + rescue[i];
             }
             else if (((min + G->arc[k][i]) == dist[i])
-                     && total[i] < (total[k] + rescue[i]))
+                        && total[i] < (total[k] + rescue[i]))
             {
                 path[i] = k;
                 total[i] = total[k] + rescue[i];
@@ -104,21 +104,7 @@ void Dijkstra(MGraph G, VertexType v0, VertexType vf, int rescue[])
         }
     }
 
-    int tmp = vf;
-    for (i = 0; i < G->numNodes; i++)
-    {
-        final[i] = tmp;
-        tmp = path[tmp];
-        if (tmp == -1) break;
-    }
-    printf("%d %d\n", i, total[vf]);
-    for (k = i; k > -1; k--)
-    {
-        if (k == 0)
-            printf("%d", final[k]);
-        else
-            printf("%d ", final[k]);
-    }
+    printf("%d %d", dist[vf], total[vf]);
 }
 
 int main()
