@@ -39,12 +39,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define MAXVEX 10000
+#define MAXVEX 100
 #define OK 1
 #define ERROR 0
 #define TRUE 1
 #define FALSE 0
-#define INFINITE 65535
+#define INFINITY 65535
 typedef int Status;	/* Status是函数的类型,其值是函数结果状态代码，如OK等 */
 typedef int VertexType; /* 顶点类型应由用户定义  */
 typedef int EdgeType; /* 边上的权值类型应由用户定义 */
@@ -56,6 +56,7 @@ typedef struct MG {
     int numNodes, numEdges; /* 图中当前的顶点数和边数  */
 } MG;
 
+int D[MAXVEX][MAXVEX];
 MGraph CreateMGraph(int numNodes, int numEdges)
 {
     int i, j;
@@ -72,7 +73,7 @@ MGraph CreateMGraph(int numNodes, int numEdges)
             if (i == j)
                 G->arc[i][j] = 0;
             else
-                G->arc[i][j] = INFINITE;
+                G->arc[i][j] = INFINITY;
 
         }
     return G;
@@ -84,9 +85,33 @@ void SetEdge(MGraph G, VertexType n1, VertexType n2, int p)
     G->arc[n2][n1] = p;
 }
 
+void Floyd(MGraph G)
+{
+
+    int i, j, k;
+    int min = INFINITY;
+    for (i = 0; i < G->numNodes; i++)
+        for (j = 0; j < G->numNodes; j++)
+        {
+            D[i][j] = G->arc[i][j];
+        }
+
+    for (k = 0; k < G->numNodes; k++)
+        for (i = 0; i < G->numNodes; i++)
+            for (j = 0; j < G->numNodes; j++)
+            {
+                if ((D[i][k] + D[k][j]) < D[i][j])
+                {
+                    D[i][j] = D[i][k] + D[k][j];
+                }
+            }
+
+
+}
+
 int main()
 {
-    int N, E, i, p;
+    int N, E, i, p, j, min;
     VertexType n1, n2;
 
 
@@ -98,7 +123,51 @@ int main()
         SetEdge(G, n1 - 1, n2 - 1, p);
     }
 
-    
+    Floyd(G);
+
+
+    // 因为要打印最小编号那一只， 倒序遍历
+    for (i = G->numNodes - 1; i > -1; i--)
+    {
+        int can = 1;
+        for (j = G->numNodes - 1; j > -1; j--)
+            if (D[i][j] == INFINITY)
+                can = 0;
+        if (can)
+            min = i;
+    }
+
+    int maxx = INF, min_num = N;
+    int flag = 0;//标记是否有不能变的动物存在
+    for(i = 1; i <= N; i++)
+    {
+        int tt_max = 0;
+        for(j = 1; j <= N; j++)
+        {
+            if(i!=j && D[i][j] == INF)
+            {
+                flag = 1;
+                break;
+            }
+            if(tt_max < D[i][j] && i != j)
+            {
+                tt_max = D[i][j];
+            }
+        }
+        if(tt_max < maxx)
+        {
+            maxx = tt_max;
+            min_num = i;
+        }
+    }
+    if(flag)
+    {
+        printf("0\n");
+    }
+    else
+    {
+        printf("%d %d\n",min_num,maxx);
+    }
 
     return 0;
 }
