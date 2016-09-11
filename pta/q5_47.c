@@ -57,82 +57,55 @@
 // LOR6
 // ZOE1
 #include <stdio.h>
-#include <stdlib.h>
+#include<stdlib.h>
 #include <string.h>
 
-#define NAMEL 8
-#define LESSIONL 20
+typedef struct node *Node;
 
-typedef struct Node *PtrToNode;
-typedef struct Node {
-    char        Name[NAMEL];
-    int         Lessions[LESSIONL];
-    int         L;    // 课程数Lessions 的length
-    PtrToNode   Next; /* 指向下一个结点的指针 */
-} Node;
+struct node {
+    int Students[40000];
+    int Numbers;
+};
 
-typedef PtrToNode Position; /* 定义位置类型 */
-typedef PtrToNode List; /* 定义单链表类型 */
+char **Students;
 
-PtrToNode newNode(char Name[], int L)
+int cmp(const void *a,const void *b)
 {
-    int i;
-    PtrToNode n = (PtrToNode)malloc(sizeof(struct Node));
-    strcpy(n->Name, Name);
-    n->L = L;
-
-    for (i = 0; i < L; i++)
-        scanf("%d", &n->Lessions[i]);
-
-    n->Next = NULL;
-    return n;
+    int x = *(int*)a;
+    int y = *(int*)b;
+    return strcmp(Students[x], Students[y]);
 }
 
-List AddStudent(List L, char Name[], int Length)
-{
-    if (L == NULL)
-        return newNode(Name, Length);
-    L->Next = AddStudent(L->Next, Name, Length);
-    return L;
-}
+int main() {
+    int N， K;
 
-void PrintLessions(List Students, int L)
-{
-    int i, j;
-    List h;
+    scanf("%d %d", &N, &K);
+    Node Courses = (Node)malloc(sizeof(struct node) * (K + 1));
+    for(int i = 1; i < K + 1; i++)
+        Courses[i].Numbers = 0;
 
-    // 遍历学生
-    for (h = Students; h; h = h->Next)
+    Students=(char **)malloc(sizeof(char*) * N);
+
+
+    for(int i = 0; i < N; i++)
     {
-        // 遍历学生的选课
-        for (i = 0; i < h->L; i++)
+        int nums, course;
+        Students[i]=(char*)malloc(sizeof(char) * 5);
+        scanf("%s %d", Students[i], &nums);
+        while(nums--)
         {
-
+            scanf("%d", &course);
+            Courses[course].Students[Courses[course].Numbers] = i;
+            Courses[course].Numbers++;
         }
-
     }
-}
 
-int main()
-{
-    int N, L, l;
-    char Name[NAMEL];
-    int Lessions[LESSIONL];
-    List Students = NULL;
-
-    scanf("%d %d", &N, &L);
-
-    printf("now n = %d, l = %d\n", N, L);
-
-    // 创建student链表
-    while (N--)
+    for(int i = 1; i < K + 1; i++)
     {
-        scanf("%s", Name);
-        getchar();
-        scanf("%d", &l);
-        Students = AddStudent(Students, Name, l);
+        qsort(Courses[i].Students, Courses[i].Numbers, sizeof(int), cmp);
+        printf("%d %d\n", i, Courses[i].Numbers);
+        for(int j = 0; j < Courses[i].Numbers; j++)
+            printf("%s\n", Students[Courses[i].Students[j]]);
     }
-
-    PrintLessions(Students, l);
     return 0;
 }
