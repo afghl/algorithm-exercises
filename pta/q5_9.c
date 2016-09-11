@@ -69,7 +69,7 @@ void Dijkstra(MGraph G, VertexType v0, VertexType vf, int rescue[])
     {
         // 找到最小
         int min = INFINITY;
-        EdgeType k;
+        VertexType k;
         for (i = 0; i < G->numNodes; i++)
         {
             if (!collected[i] && dist[i] < min)
