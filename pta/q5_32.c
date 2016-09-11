@@ -54,8 +54,6 @@ typedef struct MG {
     int numNodes, numEdges; /* 图中当前的顶点数和边数  */
 } MG;
 
-int D[MAXVEX][MAXVEX];
-
 MGraph CreateMGraph(int numNodes, int numEdges)
 {
     int i, j;
@@ -73,7 +71,6 @@ MGraph CreateMGraph(int numNodes, int numEdges)
                 G->arc[i][j] = 0;
             else
                 G->arc[i][j] = INFINITY;
-
         }
     return G;
 }
@@ -84,27 +81,29 @@ void SetEdge(MGraph G, VertexType n1, VertexType n2)
     G->arc[n2][n1] = 1;
 }
 
-void Floyd(MGraph G)
+int DFS(MGraph G, VertexType start, VertexType n, int depth, int visited[])
 {
+    int j;
 
-    int i, j, k;
-    int min = INFINITY;
-    for (i = 0; i < G->numNodes; i++)
-        for (j = 0; j < G->numNodes; j++)
-            D[i][j] = G->arc[i][j];
+    visited[n] = 1;
 
-    for (k = 0; k < G->numNodes; k++)
-        for (i = 0; i < G->numNodes; i++)
-            for (j = 0; j < G->numNodes; j++)
-                if ((D[i][k] + D[k][j]) < D[i][j])
-                    D[i][j] = D[i][k] + D[k][j];
+    // 到了最后一个结点， 看看它和首结点能不能连通
+    if (depth == G->numNodes - 1)
+    {
+        if (G->arc[n][start] == 1) return 1;
+        else return 0;
+    }
+
+    for (j = n; j < G->numNodes; j++)
+        if (G->arc[n][j] == 1 && !visited[j])
+            DFS(G, start, j, depth++, visited);
 }
 
 int main()
 {
-    int N, E, i, p, j, hasPath = 0;
+    int N, E, i, p, j, result;
     VertexType n1, n2;
-
+    int visited[MAXVEX];
 
     scanf("%d %d", &N, &E);
     MGraph G = CreateMGraph(N, E);
@@ -114,21 +113,11 @@ int main()
         SetEdge(G, n1 - 1, n2 - 1);
     }
 
-    Floyd(G);
-
-    int thisNodeHasPath;
     for (i = 0; i < G->numNodes; i++)
     {
-        thisNodeHasPath = 1;
         for (j = 0; j < G->numNodes; j++)
-        {
-            if (D[i][j] == INFINITY)
-            {
-                thisNodeHasPath = 0;
-                break;
-            }
-        }
-        if (thisNodeHasPath)
+            visited[j] = 0;
+        if (DFS(G, i, i, 0, visited))
         {
             printf("1");
             return 0;
@@ -136,5 +125,6 @@ int main()
     }
 
     printf("0");
+
     return 0;
 }
