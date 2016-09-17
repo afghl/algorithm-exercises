@@ -50,7 +50,6 @@ HashTable initHashTable(int TableSize)
 
     for (i = 0; i < H->TableSize; i++)
         H->TheCells[i].Info = EMPTY;
-
     return H;
 }
 
@@ -76,7 +75,6 @@ Position Find(HashTable H, KeyType Key)
                 NewPos += H->TableSize;
         }
     }
-
     return NewPos;
 }
 
@@ -111,15 +109,11 @@ int main()
     for (i = 0; i < N; i++)
     {
         scanf("%d %d", &lessionNum, &n);
-
-
         for (j = 0; j < n; j++)
         {
-
             scanf("%s", Name);
             InsertValue(H, Name, lessionNum);
         }
-
     }
 
     Student S;
