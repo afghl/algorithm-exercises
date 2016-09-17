@@ -20,7 +20,6 @@ int roomEnds[ROOMMAX];
 
 int compare(Student a, Student b)
 {
-    //printf("比较 a: %s, %d,  b: %s, %d\n", a->Id, a->Score, b->Id, b->Score);
     if(a->Score != b->Score)
         return b->Score >= a->Score;
     else
@@ -48,11 +47,8 @@ void MergeSort(int roomCount)
 
         if (tmp == NULL) return;
 
-
         if (tmp->Score == lastScore)
-        {
             printf("%s %d %d %d\n", tmp->Id, lastRanking, tmp->Room, tmp->RoomRanking);
-        }
         else
         {
             printf("%s %d %d %d\n", tmp->Id, count, tmp->Room, tmp->RoomRanking);
@@ -64,7 +60,6 @@ void MergeSort(int roomCount)
         count++;
 
     }
-    // 在所有考点里
 }
 
 
@@ -103,9 +98,6 @@ int main()
         }
     }
     printf("%d\n", count);
-
     MergeSort(room);
-
-    students;
     return 0;
 }
