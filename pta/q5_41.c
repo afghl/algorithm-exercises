@@ -11,7 +11,6 @@ struct student {
     int Score;
     int Room; // 考点
     int RoomRanking; // 考点内排名
-    int Ranking; // 总排名
 };
 
 struct student students[STUDENTMAX];
