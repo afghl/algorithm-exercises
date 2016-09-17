@@ -5,12 +5,11 @@
 
 #define EMPTY -1
 #define OCCUPY 1
-#define IDMAX 18
+#define IDMAX 4
 #define TABLESIZEMAX 26 * 26 * 26 * 10
 
 
 typedef struct Student {
-    char Name[4];
     int Lessions[40000];
     int Count;
 } Student;
@@ -34,7 +33,11 @@ typedef struct HashTbl {
 
 int Hash(KeyType key, int TableSize)
 {
-    return (key[0] - 'A') * (key[1] - 'A') * (key[2] - 'A') * (key[3] - '0');
+    int fir = (int)(key[0] - 'A') + 1;
+    int sed = (int)(key[1] - 'A') + 1;
+    int thi = (int)(key[2] - 'A') + 1;
+    int fou = (int)(key[3] - '0') + 1;
+    return fir * sed * thi * fou;
 }
 
 HashTable initHashTable(int TableSize)
@@ -77,7 +80,7 @@ Position Find(HashTable H, KeyType Key)
     return NewPos;
 }
 
-int InsertValue(HashTable H, KeyType Key, ValueType Value)
+int InsertValue(HashTable H, KeyType Key, int lession)
 {
     Position Pos = Find(H, Key);
     PtrToCell c = &H->TheCells[Pos];
@@ -86,41 +89,47 @@ int InsertValue(HashTable H, KeyType Key, ValueType Value)
         c->Info = OCCUPY;
         c->Key = (KeyType)malloc(sizeof(char) * IDMAX);
         strcpy(c->Key, Key);
-        c->Value = Value;
+        // 初始化value
+        c->Value = (ValueType)malloc(sizeof(struct Student));
+        c->Value->Lessions[0] = lession;
+        c->Value->Count = 0;
     }
     else
-        c->Value += Value;
+        c->Value->Lessions[++c->Value->Count] = lession;
     return Pos;
-}
-
-void PrintValue(HashTable H, KeyType K)
-{
-    Position Pos = Find(H, K);
-    if (H->TheCells[Pos].Info == OCCUPY)
-        printf("%d\n", H->TheCells[Pos].Value);
-    else
-        printf("No Info\n");
 }
 
 int main()
 {
-    int N, MinMile, Mile;
-    char key[IDMAX];
-    scanf("%d %d", &N, &MinMile);
+    int N, Count, lessionNum, n, i, j;
+    char Name[5];
+
+    scanf("%d %d", &Count, &N);
     getchar();
     HashTable H = initHashTable(TABLESIZEMAX);
 
-    while (N--)
+    for (i = 0; i < N; i++)
     {
-        scanf("%s %d", key, &Mile);
-        InsertValue(H, key, (Mile < MinMile ? MinMile : Mile));
+        scanf("%d %d", &lessionNum, &n);
+
+
+        for (j = 0; j < n; j++)
+        {
+
+            scanf("%s", Name);
+            InsertValue(H, Name, lessionNum);
+        }
+
     }
 
-    scanf("%d", &N);
-    while (N--)
+    Student S;
+    while(Count--)
     {
-        scanf("%s", key);
-        PrintValue(H, key);
+        scanf("%s", Name);
+        S = *H->TheCells[Find(H, Name)].Value;
+        printf("%s %d", Name, S.Count + 1);
+        for (i = 0; i <= S.Count; i++) printf(" %d", S.Lessions[i]);
+        printf("\n");
     }
 
     return 0;
