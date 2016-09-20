@@ -1,2 +1,3 @@
 # algorithm-exercises
-some algorithm exercises in c & java.
+some algorithm exercises in c & java. test
+
