@@ -2,3 +2,6 @@
 *.out
 *.o
 *.h.gch
+
+.idea/
+algorithm-exercises.iml
