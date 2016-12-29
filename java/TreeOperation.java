@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class TreeOperation {
@@ -7,9 +9,10 @@ public class TreeOperation {
         for (int i : arr) {
             t.insert(i);
         }
-//        t.preorderTraversal();
-//        t.inorderTraversal();
+        t.preorderTraversal();
+        t.inorderTraversal();
         t.postorderTraversal();
+        t.levelTraversal();
     }
 }
 
@@ -62,6 +65,21 @@ class Tree{
             tree.right = doInsert(tree.right, node);
 
         return tree;
+    }
+
+    public void levelTraversal() {
+        Node node = root;
+        Queue<Node> q = new LinkedList<>();
+        q.add(node);
+
+        while (!q.isEmpty()) {
+            node = q.poll();
+            System.out.print(node + "  ");
+            if (node.left != null) q.add(node.left);
+            if (node.right != null) q.add(node.right);
+        }
+
+        System.out.println();
     }
 
     public void preorderTraversal() {
@@ -122,7 +140,7 @@ class Tree{
                     s.push(curr.right);
                 // is leaf node
                 else {
-                    System.out.print(curr + " ");
+                    System.out.print(curr + "  ");
                     s.pop();
                 }
             }
@@ -132,14 +150,14 @@ class Tree{
                 if (curr.right != null) {
                     s.push(curr.right);
                 } else {
-                    System.out.print(curr + " ");
+                    System.out.print(curr + "  ");
                     s.pop();
                 }
             }
 
             // when traversing up the tree from the right
             if (curr.right == prev) {
-                System.out.print(curr + " ");
+                System.out.print(curr + "  ");
                 s.pop();
             }
 

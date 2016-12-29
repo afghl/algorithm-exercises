@@ -41,6 +41,37 @@ public class SortArray {
 
         while (l < mid) result[i++] = arr[l++];
         while (r < right) result[i++] = arr[r++];
+    }
+
+    private static void quickSort(int[] arr) {
+        qsort(arr, 0, arr.length);
+    }
+
+    private static void qsort(int[] arr, int left, int right) {
+        if (right - left <= 1)
+            return;
+
+        int i = left + 1, j = right - 1;
+        int pivot = arr[left];
+
+        while (i < j) {
+            while (arr[i] >= pivot && i < j) i++;
+
+            while (arr[j] <= pivot && i < j) j--;
+
+            if (i < j) {
+                int t = arr[i];
+                arr[i] = arr[j];
+                arr[j] = t;
+            }
+        }
+
+        int t = arr[i - 1];
+        arr[i - 1] = arr[left];
+        arr[left] = t;
+
+        qsort(arr, left, i - 1);
+        qsort(arr, i, right);
 
     }
 
@@ -51,6 +82,10 @@ public class SortArray {
         int[] arr2 = { -2, 11, -4, 13, -5, -2, 3, 5, 77, 77, 40 };
         merge(arr2);
         inspect(arr2);
+
+        int[] arr3 = { 6, 11, -4, 13, -5, 4, 3, 5, 67, 77, 40, 40, 40 };
+        quickSort(arr3);
+        inspect(arr3);
 
     }
 
