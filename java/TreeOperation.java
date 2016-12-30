@@ -12,9 +12,8 @@ public class TreeOperation {
         t.inorderTraversal();
         t.revert();
         t.inorderTraversal();
-
-//        t.postorderTraversal();
-//        t.levelTraversal();
+        t.postorderTraversal();
+        t.levelTraversal();
     }
 }
 
