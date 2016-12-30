@@ -9,10 +9,12 @@ public class TreeOperation {
         for (int i : arr) {
             t.insert(i);
         }
-        t.preorderTraversal();
         t.inorderTraversal();
-        t.postorderTraversal();
-        t.levelTraversal();
+        t.revert();
+        t.inorderTraversal();
+
+//        t.postorderTraversal();
+//        t.levelTraversal();
     }
 }
 
@@ -43,6 +45,23 @@ class Tree{
                 }
             }
         }
+    }
+
+    public void revert() {
+        doRevert(root);
+
+    }
+
+    private void doRevert(Node node) {
+        if (node == null)
+            return;
+
+        Node n = node.left;
+        node.left = node.right;
+        node.right = n;
+
+        doRevert(node.left);
+        doRevert(node.right);
     }
 
     public void insert(int e) {
