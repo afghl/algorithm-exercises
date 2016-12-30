@@ -48,8 +48,19 @@ class Tree{
     }
 
     public void revert() {
-        doRevert(root);
+//        doRevert(root);
+        Node node;
+        Stack<Node> s = new Stack<>();
+        s.push(root);
+        while (!s.isEmpty()) {
+            node = s.pop();
+            Node n = node.left;
+            node.left = node.right;
+            node.right = n;
 
+            if (node.left != null) s.push(node.left);
+            if (node.right != null) s.push(node.right);
+        }
     }
 
     private void doRevert(Node node) {
