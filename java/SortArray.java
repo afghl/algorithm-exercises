@@ -44,20 +44,19 @@ public class SortArray {
     }
 
     private static void quickSort(int[] arr) {
-        qsort(arr, 0, arr.length);
+        qsort(arr, 0, arr.length - 1);
     }
 
     private static void qsort(int[] arr, int left, int right) {
-        if (right - left <= 1)
+        if (right - left < 1)
             return;
 
-        int i = left + 1, j = right - 1;
+        int i = left + 1, j = right;
         int pivot = arr[left];
 
         while (i < j) {
-            while (arr[i] >= pivot && i < j) i++;
-
             while (arr[j] <= pivot && i < j) j--;
+            while (arr[i] >= pivot && i < j) i++;
 
             if (i < j) {
                 int t = arr[i];
@@ -66,22 +65,27 @@ public class SortArray {
             }
         }
 
-        int t = arr[i - 1];
-        arr[i - 1] = arr[left];
+        System.out.println("i = " + i + ", j = " + j +  ", left = " + left + ", pivot = " + pivot);
+        int t = arr[i];
+        arr[i] = arr[left];
         arr[left] = t;
 
-        qsort(arr, left, i - 1);
-        qsort(arr, i, right);
+        System.out.println("after this round:");
+        inspect(arr);
+
+        qsort(arr, left, i);
+        qsort(arr, i + 1, right);
 
     }
 
     public static void main(String[] args) {
-        int[] arr = { -2, 11, -4, 13, -5, -2, 3, 5, 77, 77, 40 };
-        bubble(arr);
-        inspect(arr);
-        int[] arr2 = { -2, 11, -4, 13, -5, -2, 3, 5, 77, 77, 40 };
-        merge(arr2);
-        inspect(arr2);
+//        int[] arr = { -2, 11, -4, 13, -5, -2, 3, 5, 77, 77, 40 };
+//        bubble(arr);
+//        inspect(arr);
+//
+//        int[] arr2 = { -2, 11, -4, 13, -5, -2, 3, 5, 77, 77, 40 };
+//        merge(arr2);
+//        inspect(arr2);
 
         int[] arr3 = { 6, 11, -4, 13, -5, 4, 3, 5, 67, 77, 40, 40, 40 };
         quickSort(arr3);

@@ -63,7 +63,10 @@ class Waiter implements Runnable {
         try {
             while (true) {
                 Meal m = null;
-                while (m == null) m = q.poll();
+                while (m == null) {
+                    m = q.poll();
+                    Thread.yield();
+                }
                 System.out.println("---  deliver meal: " + m);
                 Thread.sleep(200);
             }
