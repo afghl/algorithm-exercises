@@ -48,34 +48,26 @@ public class SortArray {
     }
 
     private static void qsort(int[] arr, int left, int right) {
-        if (right - left < 1)
-            return;
+        int i = left, j = right;
+        int pivot = arr[(left + right) / 2];
 
-        int i = left + 1, j = right;
-        int pivot = arr[left];
+        while (i <= j) {
+            while (arr[i] > pivot) i++;
+            while (arr[j] < pivot) j--;
 
-        while (i < j) {
-            while (arr[j] <= pivot && i < j) j--;
-            while (arr[i] >= pivot && i < j) i++;
-
-            if (i < j) {
+            if (i <= j) {
                 int t = arr[i];
                 arr[i] = arr[j];
                 arr[j] = t;
+                i++;
+                j--;
             }
         }
 
-        System.out.println("i = " + i + ", j = " + j +  ", left = " + left + ", pivot = " + pivot);
-        int t = arr[i];
-        arr[i] = arr[left];
-        arr[left] = t;
-
-        System.out.println("after this round:");
-        inspect(arr);
-
-        qsort(arr, left, i);
-        qsort(arr, i + 1, right);
-
+        if (left < i - 1)
+            qsort(arr, left, i - 1);
+        if (right > i)
+            qsort(arr, i, right);
     }
 
     public static void main(String[] args) {
