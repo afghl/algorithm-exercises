@@ -11,10 +11,10 @@ public class TreeOperation {
         }
 //        t.inorderTraversal();
 //        t.revert();
-//        t.inorderTraversal();
+        t.inorderTraversal();
 //        t.postorderTraversal();
 //        t.levelTraversal();
-        t.preorderTraversal();
+//        t.preorderTraversal();
     }
 }
 
@@ -133,14 +133,12 @@ class Tree{
         Stack<Node> stack = new Stack<>();
 
         while (node != null || !stack.empty()) {
-            while (node != null) {
+            if (node != null) {
                 stack.push(node);
                 node = node.left;
-            }
-
-            if (!stack.empty()) {
+            } else {
                 Node n = stack.pop();
-                System.out.print(n  + "  ");
+                System.out.print(n + "  ");
                 node = n.right;
             }
         }
