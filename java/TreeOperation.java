@@ -9,11 +9,12 @@ public class TreeOperation {
         for (int i : arr) {
             t.insert(i);
         }
-        t.inorderTraversal();
-        t.revert();
-        t.inorderTraversal();
-        t.postorderTraversal();
-        t.levelTraversal();
+//        t.inorderTraversal();
+//        t.revert();
+//        t.inorderTraversal();
+//        t.postorderTraversal();
+//        t.levelTraversal();
+        t.preorderTraversal();
     }
 }
 
@@ -112,20 +113,17 @@ class Tree{
     }
 
     public void preorderTraversal() {
-        Node node = root;
-        Stack<Node> stack = new Stack<>();
-        while (node != null || !stack.empty()) {
-            while (node != null) {
-                System.out.print(node + "  ");
-                stack.push(node);
-                node = node.left;
-            }
+        Stack<Node> s = new Stack<>();
+        s.push(root);
 
-            if (!stack.empty()) {
-                Node n = stack.pop();
-                node = n.right;
-            }
+        while (!s.isEmpty()) {
+            Node node = s.pop();
+            System.out.print(node + " ");
+
+            if (node.right != null) s.push(node.right);
+            if (node.left != null) s.push(node.left);
         }
+
 
         System.out.println();
     }
