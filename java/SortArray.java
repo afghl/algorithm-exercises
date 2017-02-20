@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 
 // 最大在最前
 public class SortArray {
@@ -64,8 +66,8 @@ public class SortArray {
             }
         }
 
-        if (left < i - 1)
-            qsort(arr, left, i - 1);
+        if (left < j)
+            qsort(arr, left, j);
         if (right > i)
             qsort(arr, i, right);
     }

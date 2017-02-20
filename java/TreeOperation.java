@@ -11,8 +11,8 @@ public class TreeOperation {
         }
 //        t.inorderTraversal();
 //        t.revert();
-        t.inorderTraversal();
-//        t.postorderTraversal();
+//        t.inorderTraversal();
+        t.postorderTraversal();
 //        t.levelTraversal();
 //        t.preorderTraversal();
     }
@@ -147,10 +147,9 @@ class Tree{
     }
 
     public void postorderTraversal() {
-        Node head = root;
-        Stack<Node> s = new Stack<>();
         Node prev = null;
-        s.push(head);
+        Stack<Node> s = new Stack<>();
+        s.push(root);
 
         while (!s.isEmpty()) {
             Node curr = s.peek();
