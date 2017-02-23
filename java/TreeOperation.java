@@ -98,12 +98,11 @@ class Tree{
     }
 
     public void levelTraversal() {
-        Node node = root;
         Queue<Node> q = new LinkedList<>();
-        q.add(node);
+        q.add(root);
 
         while (!q.isEmpty()) {
-            node = q.poll();
+            Node node = q.poll();
             System.out.print(node + "  ");
             if (node.left != null) q.add(node.left);
             if (node.right != null) q.add(node.right);
