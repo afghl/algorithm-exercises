@@ -27,11 +27,18 @@ class BST
 
   traversal: (opt) ->
     if opt is 'inorder'
-      @inorderTraversal(@head)
+      @inorderTraversal @head
+    else if opt is 'preorder'
+      @preorderTraversal @head
 
   inorderTraversal: (node) ->
     console.log node.value
     @inorderTraversal(node.left) if node.left?
+    @inorderTraversal(node.right) if node.right?
+
+  preorderTraversal: (node) ->
+    @inorderTraversal(node.left) if node.left?
+    console.log node.value
     @inorderTraversal(node.right) if node.right?
 
 createTree = ->
@@ -39,8 +46,6 @@ createTree = ->
   b.batchInsert [6, 4, 8, 3, 9, 10, 1]
   b
 
-travel = (tree, order) ->
-  tree.traversal order
-
 t = createTree()
-travel t, 'inorder'
+t.traversal 'inorder'
+t.traversal 'preorder'

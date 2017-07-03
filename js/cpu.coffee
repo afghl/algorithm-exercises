@@ -12,8 +12,6 @@
 class Cpu
   process: ->
 
-
-
 compute = (n, l) ->
 
 
