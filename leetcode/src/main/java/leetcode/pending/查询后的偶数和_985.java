@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.pending;
 
 /**
  * https://leetcode-cn.com/problems/sum-of-even-numbers-after-queries/
