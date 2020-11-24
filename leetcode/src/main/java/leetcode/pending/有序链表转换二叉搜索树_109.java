@@ -1,5 +1,6 @@
-package leetcode.linkedlist;
+package leetcode.pending;
 
+import leetcode.linkedlist.ListNode;
 import leetcode.tree.TreeNode;
 
 /**
