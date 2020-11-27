@@ -39,5 +39,9 @@ var deleteDuplicates = function(head) {
     node = node.next;
   }
 
+  if (needDeleteLast) {
+    prep.next = null
+  }
+
   return result.next;
 };
