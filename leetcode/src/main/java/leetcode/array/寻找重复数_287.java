@@ -34,6 +34,8 @@ public class 寻找重复数_287 {
         return -1;
     }
 
-    public int findDuplicate2(int[] nums) { }
+    public int findDuplicate2(int[] nums) {
+        return -1;
+    }
 
 }
