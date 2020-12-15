@@ -23,7 +23,7 @@ class LRUCache {
 
     private DLinkedNode head;
     private DLinkedNode tail;
-    private Map<Integer, DLinkedNode> map;
+    private Map<Integer/* key */, DLinkedNode> map;
     private int capacity;
     private int size;
 
@@ -42,10 +42,53 @@ class LRUCache {
     }
 
     public int get(int key) {
-
+        DLinkedNode node = map.get(key);
+        if (node == null) {
+            return -1;
+        }
+        moveToTop(node);
+        return node.value;
     }
 
     public void put(int key, int value) {
-        
+        // 如果已经在map里，移动到头位
+        DLinkedNode node = map.get(key);
+        if (node != null) {
+            node.value = value;
+            moveToTop(node);
+        // 如果不在map里，新增一个node，移动到头位
+        } else {
+            node = new DLinkedNode(key, value);
+            this.size++;
+            addToTop(node);
+            map.put(key, node);
+        }
+
+        // 判断capacity，回收
+        if (size > capacity) {
+            DLinkedNode last = tail.prev;
+            remove(last);
+            map.remove(last.key);
+            size--;
+        }
+    }
+
+    private void addToTop(DLinkedNode node) {
+        DLinkedNode next = head.next;
+
+        next.prev = node;
+        head.next = node;
+        node.next = next;
+        node.prev = head;
+    }
+
+    private void moveToTop(DLinkedNode node) {
+        remove(node);
+        addToTop(node);
+    }
+
+    private void remove(DLinkedNode node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
     }
 }
