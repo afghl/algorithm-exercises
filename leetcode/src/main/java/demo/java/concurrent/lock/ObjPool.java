@@ -35,14 +35,14 @@ class ObjPool<T, R> {
     }
 
     public static void main(String[] args) {
-        // 创建对象池
-        ObjPool<Long, String> pool =
-                new ObjPool<Long, String>(10, 2);
-        // 通过对象池获取t，之后执行
-        pool.exec(t -> {
-            System.out.println(t);
-            return t.toString();
-        });
+//        // 创建对象池
+//        ObjPool<Long, String> pool =
+//                new ObjPool<Long, String>(10, 2);
+//        // 通过对象池获取t，之后执行
+//        pool.exec(t -> {
+//            System.out.println(t);
+//            return t.toString();
+//        });
     }
 }
 
