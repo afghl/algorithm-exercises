@@ -60,4 +60,30 @@ public class 反转链表_206 {
 //    }
 
     //1->2->3->4->5->NULL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    public ListNode reverseList(ListNode head) {
+//        return doReverse(null, head);
+//    }
+//
+//    private ListNode doReverse(ListNode prev, ListNode node) {
+//        if (node == null) {
+//            return prev;
+//        }
+//        ListNode next = node.next;
+//        node.next = prev;
+//        return doReverse(node, next);
+//    }
 }

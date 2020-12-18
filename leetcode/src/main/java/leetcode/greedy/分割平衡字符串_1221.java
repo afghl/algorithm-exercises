@@ -8,6 +8,6 @@ package leetcode.greedy;
 public class 分割平衡字符串_1221 {
 
     public int balancedStringSplit(String s) {
-
+return -1;
     }
 }
