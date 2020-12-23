@@ -1,6 +1,7 @@
 package demo.java.concurrent.lock;
 
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.Semaphore;
@@ -43,6 +44,9 @@ class ObjPool<T, R> {
 //            System.out.println(t);
 //            return t.toString();
 //        });
+
+        List<Integer> l = Arrays.asList(1, 2, 3);
+        l.add(4);
     }
 }
 
