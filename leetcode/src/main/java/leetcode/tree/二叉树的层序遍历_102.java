@@ -21,7 +21,7 @@ public class 二叉树的层序遍历_102 {
         while (!q.isEmpty()) {
             // 全部拿出来
             List<Integer> result = new ArrayList<>();
-            
+
             int count = q.size();
             while (count-- > 0) {
                 TreeNode node = q.poll();

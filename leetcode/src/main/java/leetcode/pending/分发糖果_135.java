@@ -17,7 +17,6 @@ public class 分发糖果_135 {
             int curr = ratings[i];
             int next = i < ratings.length - 1 ? ratings[i + 1] : 0;
 
-            if (curr > prev)
         }
         return result[ratings.length - 1];
     }
