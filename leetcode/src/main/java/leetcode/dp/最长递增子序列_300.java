@@ -23,7 +23,7 @@ public class 最长递增子序列_300 {
         for (int i = 1; i < nums.length; i++) {
             int maxPrev = 0;
             for (int k = 0; k < i; k++)
-                if (nums[k] < nums[i]) 
+                if (nums[k] < nums[i])
                     maxPrev = Math.max(maxPrev, results[k]);
 
             results[i] = maxPrev + 1;
