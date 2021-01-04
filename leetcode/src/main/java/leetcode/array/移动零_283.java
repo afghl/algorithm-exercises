@@ -21,7 +21,7 @@ public class 移动零_283 {
             return;
         }
 
-        // left指向已经处理好的数组的结尾，right向后寻找0的数，和left置换
+        // left指向已经处理好的数组的结尾，right向后寻找非0的数，和left置换
         int left = 0, right = 0;
 
         while (right < nums.length) {
@@ -41,7 +41,7 @@ public class 移动零_283 {
     }
 
     public static void main(String[] args) {
-        new 移动零_283().moveZeroes(new int[] {1,2,0,0});
+        new 移动零_283().moveZeroes(new int[] {1,2,3,0,0});
     }
 
 }
