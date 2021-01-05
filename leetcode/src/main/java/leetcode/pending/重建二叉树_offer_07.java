@@ -9,6 +9,12 @@ import java.util.Map;
  * https://leetcode-cn.com/problems/zhong-jian-er-cha-shu-lcof/
  * <p>
  * medium
+ * <p>
+ * 从前序与中序遍历序列构造二叉树
+ * <p>
+ * https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+ * <p>
+ * medium
  */
 public class 重建二叉树_offer_07 {
 
@@ -50,14 +56,14 @@ public class 重建二叉树_offer_07 {
         TreeNode root = new TreeNode(rootVal);
         if (preorderStart == preorderEnd) {
             return root;
-        } else {
-            int rootIndex = indexMap.get(rootVal);
-            int leftNodes = rootIndex - inorderStart, rightNodes = inorderEnd - rootIndex;
-            TreeNode leftSubtree = buildTree(preorder, preorderStart + 1, preorderStart + leftNodes, inorder, inorderStart, rootIndex - 1, indexMap);
-            TreeNode rightSubtree = buildTree(preorder, preorderEnd - rightNodes + 1, preorderEnd, inorder, rootIndex + 1, inorderEnd, indexMap);
-            root.left = leftSubtree;
-            root.right = rightSubtree;
-            return root;
         }
+
+        int rootIndex = indexMap.get(rootVal);
+        int leftNodes = rootIndex - inorderStart, rightNodes = inorderEnd - rootIndex;
+        TreeNode leftSubtree = buildTree(preorder, preorderStart + 1, preorderStart + leftNodes, inorder, inorderStart, rootIndex - 1, indexMap);
+        TreeNode rightSubtree = buildTree(preorder, preorderEnd - rightNodes + 1, preorderEnd, inorder, rootIndex + 1, inorderEnd, indexMap);
+        root.left = leftSubtree;
+        root.right = rightSubtree;
+        return root;
     }
 }
