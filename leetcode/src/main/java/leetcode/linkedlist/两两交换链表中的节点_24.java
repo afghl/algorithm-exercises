@@ -12,20 +12,26 @@ public class 两两交换链表中的节点_24 {
     }
 
     public ListNode swapPairs(ListNode head) {
+        if (head == null) {
+            return null;
+        }
         ListNode result = new ListNode(-1);
-        ListNode pre = result;
-        pre.next = head;
-        while (pre.next != null && pre.next.next != null) {
-            ListNode a = pre.next;
-            ListNode b = pre.next.next;
-            ListNode next = b.next;
-            // swap a and b
+        ListNode last = result;
+        last.next = head;
 
-            pre.next = b;
+        while(last.next != null && last.next.next != null) {
+            ListNode a = last.next;
+            ListNode b = a.next;
+            ListNode next = b.next;
+
+            // swap a and b
+            last.next = b;
             b.next = a;
             a.next = next;
-            pre = a;
+
+            last = a;
         }
+
 
         return result.next;
     }
