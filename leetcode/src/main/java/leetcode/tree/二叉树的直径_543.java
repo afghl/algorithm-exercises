@@ -29,17 +29,20 @@ public class 二叉树的直径_543 {
         if (root == null) {
             return 0;
         }
+
         dfs(root);
         return max;
     }
 
-    private int dfs(TreeNode root) {
-        if (root.left == null && root.right == null) {
+    private int dfs(TreeNode node) {
+        if (node.left == null && node.right == null) {
             return 0;
         }
-        int leftSize = root.left == null? 0: dfs(root.left) + 1;
-        int rightSize = root.right == null? 0: dfs(root.right) + 1;
+
+        int leftSize = node.left == null ? 0 : dfs(node.left) + 1;
+        int rightSize = node.right == null ? 0 : dfs(node.right) + 1;
+
         max = Math.max(max, leftSize + rightSize);
-        return Math.max(leftSize, rightSize);
+        return Math.max(leftSize, rightSize) + 1;
     }
 }

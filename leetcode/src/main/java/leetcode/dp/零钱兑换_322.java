@@ -61,33 +61,34 @@ public class 零钱兑换_322 {
 
     // 自己写次
     public int coinChange(int[] coins, int amount) {
-        if (coins == null || coins.length <= 0) {
+        if (coins == null || coins.length <= 0 || amount < 0) {
             return -1;
+        }
+
+        if (amount == 0) {
+            return 0;
         }
 
         int[] result = new int[amount + 1];
         result[0] = 0;
         for (int i = 1; i <= amount; i++) {
-
-            // f(n)是从之前的可以到f(n)的前序里面生成
-            int min = Integer.MAX_VALUE;
+            // dp[i] = min(di[i-coins[k]]...) + 1
+            int max = Integer.MAX_VALUE;
             for (int coin : coins) {
                 if (i < coin) {
                     continue;
                 }
-
-                if (result[i - coin] < min) {
-                    min = result[i - coin]  + 1;
-                }
+                max = Math.min(result[i - coin], max);
             }
-            result[i] = min;
+            result[i] = max == Integer.MAX_VALUE ? max : max + 1;
         }
 
         return result[amount] == Integer.MAX_VALUE ? -1 : result[amount];
     }
 
     public static void main(String[] args) {
-        new 零钱兑换_322().coinChange(new int[] {2,5}, 11);
+        int i = new 零钱兑换_322().coinChange(new int[]{2, 5}, 11);
+        System.out.println(i);
     }
 
 }

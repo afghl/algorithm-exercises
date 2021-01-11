@@ -1,8 +1,6 @@
 package leetcode.tree;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * https://leetcode-cn.com/problems/binary-tree-right-side-view/
@@ -17,22 +15,28 @@ public class 二叉树的右视图_199 {
             return result;
         }
 
-        // 不递归，广度优先搜索
-        // visit
-        List<TreeNode> nodesInLevel = Arrays.asList(root);
-        while (!nodesInLevel.isEmpty()) {
-            // 这一层的nodes都找到了，最右边那个就是这一层能看到的。
-            result.add(nodesInLevel.get(nodesInLevel.size() - 1).val);
+        // bfs
 
-            // 找下一层，然后塞到集合里
-            List<TreeNode> nextLevel = new ArrayList<>();
-            for (TreeNode node : nodesInLevel) {
-                if (node.left != null) nextLevel.add(node.left);
-                if (node.right != null) nextLevel.add(node.right);
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+
+        while (!q.isEmpty()) {
+            // 把全部拿出来
+            int size = q.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = q.poll();
+                if (node.left != null) {
+                    q.add(node.left);
+                }
+                if (node.right != null) {
+                    q.add(node.right);
+                }
+                if (i == size - 1) {
+                    result.add(node.val);
+                }
             }
-
-            nodesInLevel = nextLevel;
         }
+
         return result;
     }
 }
