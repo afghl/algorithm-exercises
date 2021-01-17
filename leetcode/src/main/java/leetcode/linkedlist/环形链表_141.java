@@ -8,41 +8,29 @@ import java.util.Set;
  * easy
  */
 public class 环形链表_141 {
+
+    /**
+     * 你能用 O(1)（即，常量）内存解决此问题吗？
+     *
+     */
+
+    // 快慢指针
     public boolean hasCycle(ListNode head) {
         if (head == null) {
             return false;
         }
+        ListNode fast = head.next;
+        ListNode slow = head;
 
-        ListNode node = head;
-        Set<ListNode> nodes = new HashSet<>();
-        while (node != null) {
-            if (nodes.contains(node)) {
+        while (fast != null && fast.next != null) {
+            if (slow == fast) {
                 return true;
-            } else {
-                nodes.add(node);
-                node = node.next;
             }
+
+            slow = slow.next;
+            fast = fast.next.next;
         }
+
         return false;
     }
-
-//    // 快慢指针
-//    public boolean hasCycle(ListNode head) {
-//        if (head == null) {
-//            return false;
-//        }
-//        ListNode fast = head.next;
-//        ListNode slow = head;
-//
-//        while (fast != null && fast.next != null) {
-//            if (slow == fast) {
-//                return true;
-//            }
-//
-//            slow = slow.next;
-//            fast = fast.next.next;
-//        }
-//
-//        return false;
-//    }
 }

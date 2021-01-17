@@ -36,18 +36,19 @@ public class 无重复字符的最长子串_3 {
         Map<Character, Integer> characterIndex = new HashMap<>();
         while (right < s.length()) {
             // 如果left到right的区间内，包含重复字符串
-            if (characterIndex.containsKey(s.charAt(right))) {
-                left = Math.max(left, characterIndex.get(s.charAt(right)) + 1);
+            char c = s.charAt(right);
+            if (characterIndex.containsKey(c)) {
+                left = Math.max(left, characterIndex.get(c) + 1);
             }
-            characterIndex.put(s.charAt(right), right);
-            right = right + 1;
+            characterIndex.put(c, right);
             max = Math.max(max, right - left + 1);
+            right = right + 1;
         }
 
         return max;
     }
 
     public static void main(String[] args) {
-        System.out.println(new 无重复字符的最长子串_3().lengthOfLongestSubstring("dvdf"));
+        System.out.println(new 无重复字符的最长子串_3().lengthOfLongestSubstring("abba"));
     }
 }

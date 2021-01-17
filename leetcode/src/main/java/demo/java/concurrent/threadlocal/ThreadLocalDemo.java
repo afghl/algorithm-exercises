@@ -11,7 +11,6 @@ public class ThreadLocalDemo {
 
     public static void main(String[] args) throws InterruptedException {
         ExecutorService pool = Executors.newFixedThreadPool(5);
-
         IntStream.range(1, 5).forEach(a -> {
             pool.submit(() -> {
                 threadLocal.set(String.valueOf(a));
