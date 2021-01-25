@@ -17,6 +17,7 @@ public class 字符串的排列_38 {
     public static void main(String[] args) {
         new 字符串的排列_38().permutation("abc");
     }
+
     public String[] permutation(String s) {
         c = s.toCharArray();
         dfs(0);

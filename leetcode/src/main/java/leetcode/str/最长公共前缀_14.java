@@ -1,5 +1,8 @@
 package leetcode.str;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * https://leetcode-cn.com/problems/longest-common-prefix/
  *
@@ -31,5 +34,12 @@ public class 最长公共前缀_14 {
         }
 
         return result.toString();
+    }
+
+    public static void main(String[] args) {
+        List<String> a = new ArrayList<>();
+        List<Integer> b = new ArrayList<>();
+        System.out.println(true);
+        System.out.println(a.getClass());
     }
 }

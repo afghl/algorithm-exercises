@@ -43,6 +43,4 @@ public class 二叉树的前序遍历_144 {
         doTraversal(node.left, result);
         doTraversal(node.right, result);
     }
-
-
 }

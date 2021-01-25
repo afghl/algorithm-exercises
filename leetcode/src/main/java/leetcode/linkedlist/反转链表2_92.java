@@ -30,47 +30,48 @@ public class 反转链表2_92 {
      * @return
      */
     public ListNode reverseBetween(ListNode head, int m, int n) {
-        if (head == null || head.next == null) {
+        if (head == null || head.next == null || m < 0 || n < 0) {
             return head;
         }
 
+        // 找到m下标的那个节点node
         int i = 1;
-        ListNode prev = null;
-        ListNode curr = head;
+        ListNode prev = null, node = head;
         while (i++ < m) {
-            prev = curr;
-            curr = curr.next;
+            prev = node;
+            node = node.next;
         }
 
-        ListNode reversed = reverse(curr, n - m);
+        ListNode reversedHead = reverseSubList(node, n - m);
 
         if (prev != null) {
-            prev.next = reversed;
+            prev.next = reversedHead;
+            return head;
         } else {
-            return reversed;
+            return reversedHead;
         }
-
-        return head;
     }
 
-    private ListNode reverse(ListNode head, int count) {
-        if (head == null || head.next == null) {
-            return head;
+    // 从node开始，翻转后面的count个节点，返回翻转后的头节点
+    private ListNode reverseSubList(ListNode node, int count) {
+        if (node == null || node.next == null) {
+            return node;
         }
 
-        ListNode prev = null;
-        ListNode curr = head;
-        ListNode next;
+        ListNode prev = null, curr = node;
 
         while (count-- >= 0) {
-            next = curr.next; // 2
+            ListNode next = curr.next;
             curr.next = prev;
+
             prev = curr;
             curr = next;
         }
 
-        head.next = curr;
+        node.next = curr;
 
+        // 返回翻转后的头节点
         return prev;
     }
+
 }
