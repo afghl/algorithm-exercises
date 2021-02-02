@@ -7,6 +7,15 @@ package leetcode.linkedlist;
  */
 public class 分隔链表_86 {
 
+
+    public ListNode partition(ListNode head, int x) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        
+    }
+
     /**
      * 给定一个链表和一个特定值 x，对链表进行分隔，使得所有小于 x 的节点都在大于或等于 x 的节点之前。
      *

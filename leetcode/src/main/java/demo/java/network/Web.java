@@ -12,18 +12,16 @@ public class Web {
         Socket socket = ss.accept();
         BufferedReader br = new BufferedReader(
                 new InputStreamReader(socket.getInputStream()));
-        String buffer = null;
+        String input = "";
+        String buffer;
         while ((buffer = br.readLine()) != null && !buffer.equals("")) {
             System.out.println(buffer);
+            input += buffer;
         }
 
         BufferedWriter bw = new BufferedWriter(
                 new OutputStreamWriter(socket.getOutputStream()));
-        bw.write("HTTP/1.1 200 OK\n");
-        bw.write("Content-Type: text/html; charset=UTF-8\n\n");
-        bw.write("<html>\n" + "<head>\n" + "    <title>first page</title>\n"
-                + "</head>\n" + "<body>\n" + "    <h1>Hello Web Server!</h1>\n"
-                + "</body>\n" + "</html>\n");
+        bw.write(input.toUpperCase());
         bw.flush();
         bw.close();
 

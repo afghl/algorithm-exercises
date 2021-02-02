@@ -1,5 +1,7 @@
 package leetcode.linkedlist;
 
+import java.util.HashMap;
+
 /**
  * https://leetcode-cn.com/problems/reverse-linked-list/
  *
@@ -23,7 +25,7 @@ public class 反转链表_206 {
             prev = curr;
             curr = next;
         }
-
+        new HashMap<>().containsKey()
         return prev;
     }
 
@@ -40,26 +42,24 @@ public class 反转链表_206 {
      * @param head
      * @return
      */
-//    public ListNode reverseList(ListNode head) {
-//        if (head == null || head.next == null) {
-//            return head;
-//        }
-//
-//        ListNode prev = null;
-//        ListNode curr = head;
-//        ListNode next;
-//
-//        while (curr != null) {
-//            next = curr.next; // 2
-//            curr.next = prev;
-//            prev = curr;
-//            curr = next;
-//        }
-//
-//        return prev;
-//    }
+    public ListNode reverseList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
 
-    //1->2->3->4->5->NULL
+        ListNode prev = head, node = head.next;
+
+        while (node != null) {
+            ListNode next = node.next;
+
+            node.next = prev;
+
+            node = next;
+            prev = node;
+        }
+        return head;
+    }
+
 
 
 
