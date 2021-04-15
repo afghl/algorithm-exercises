@@ -13,7 +13,25 @@ public class 分隔链表_86 {
             return head;
         }
 
-        
+        ListNode max = new ListNode(-1);
+        ListNode min = new ListNode(-1);
+        ListNode maxPtr = max, minPtr = min;
+        ListNode node = head;
+
+        while (node != null) {
+            if (node.val >= x) {
+                maxPtr.next = node;
+                maxPtr = node;
+                // 在原来的链表里删除
+            } else {
+                minPtr.next = node;
+                minPtr = node;
+            }
+        }
+
+        minPtr.next = max.next;
+        maxPtr.next = null;
+        return min.next;
     }
 
     /**

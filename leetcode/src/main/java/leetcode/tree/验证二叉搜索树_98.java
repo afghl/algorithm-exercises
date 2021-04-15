@@ -35,6 +35,8 @@ public class 验证二叉搜索树_98 {
         return inorderTraversal(node.right, stack);
     }
 
+
+
 //    public boolean isValidBST(TreeNode root) {
 //        return isValidBST(root);
 //    }
@@ -65,4 +67,34 @@ public class 验证二叉搜索树_98 {
     }
 
 
+
+
+
+    public boolean isValidBST(TreeNode root) {
+        if (root == null) {
+            return false;
+        }
+
+        return traversal(root, Long.MAX_VALUE, Long.MIN_VALUE);
+    }
+
+    private boolean traversal(TreeNode node, long max, long min) {
+        if (node == null) {
+            return true;
+        }
+
+        if (node.val <= min || node.val >= max) {
+            return false;
+        }
+
+        if (!traversal(node.left, node.val, min)) {
+            return false;
+        }
+
+        if (!traversal(node.right, max, node.val)) {
+            return false;
+        }
+
+        return true;
+    }
 }
