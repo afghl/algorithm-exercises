@@ -25,7 +25,7 @@ public class 反转链表_206 {
             prev = curr;
             curr = next;
         }
-        new HashMap<>().containsKey()
+//        new HashMap<>().containsKey();
         return prev;
     }
 
@@ -42,7 +42,7 @@ public class 反转链表_206 {
      * @param head
      * @return
      */
-    public ListNode reverseList(ListNode head) {
+    public ListNode reverseList2(ListNode head) {
         if (head == null || head.next == null) {
             return head;
         }

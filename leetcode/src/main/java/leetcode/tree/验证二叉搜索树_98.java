@@ -70,7 +70,7 @@ public class 验证二叉搜索树_98 {
 
 
 
-    public boolean isValidBST(TreeNode root) {
+    public boolean isValidBST2(TreeNode root) {
         if (root == null) {
             return false;
         }

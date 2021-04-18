@@ -45,7 +45,7 @@ public class 分隔链表_86 {
      * 输出: 1->2->2->4->3->5
      *
      */
-    public ListNode partition(ListNode head, int x) {
+    public ListNode partition2(ListNode head, int x) {
         ListNode maxHead = new ListNode(-1);
         ListNode minHead = new ListNode(-1);
         ListNode p = maxHead, q = minHead;

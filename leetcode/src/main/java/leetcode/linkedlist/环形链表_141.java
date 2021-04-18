@@ -15,7 +15,7 @@ public class 环形链表_141 {
      */
 
     // 快慢指针
-    public boolean hasCycle(ListNode head) {
+//    public boolean hasCycle(ListNode head) {
 //        if (head == null) {
 //            return false;
 //        }
@@ -32,5 +32,5 @@ public class 环形链表_141 {
 //        }
 //
 //        return false;
-    }
+//    }
 }
