@@ -33,18 +33,18 @@ func dfs(candidates []int, ans *[][]int, com *[]int, target int, idx int) {
 	}
 
 	// 跳过当前这个元素
-	dfs(candidates, ans, com, target, idx + 1)
+	dfs(candidates, ans, com, target, idx+1)
 
 	// 选择当前这个元素，加到com里，然后继续走dfs
 	curr := candidates[idx]
 
-	if target - curr >= 0 {
+	if target-curr >= 0 {
 		// 加到com
 		*com = append(*com, curr)
 
-		dfs(candidates, ans, com, target - curr, idx)
+		dfs(candidates, ans, com, target-curr, idx)
 		// 做完dfs后要把curr从com里移除掉
-		*com = (*com)[:len(*com) - 1]
+		*com = (*com)[:len(*com)-1]
 	}
 }
 
