@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func twoSum(nums []int, target int) []int {
 	if len(nums) < 2 {
 		return nil
@@ -17,7 +15,7 @@ func twoSum(nums []int, target int) []int {
 	return nil
 }
 
-func main() {
-	a := twoSum([]int{3, 2, 4}, 6)
-	fmt.Printf("a:%v\n", a)
-}
+// func main() {
+// 	a := twoSum([]int{3, 2, 4}, 6)
+// 	fmt.Printf("a:%v\n", a)
+// }
