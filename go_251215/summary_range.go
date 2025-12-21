@@ -39,7 +39,3 @@ func summaryRanges(nums []int) []string {
 	}
 	return res
 }
-
-func main() {
-	summaryRanges([]int{0, 2, 3, 4, 6, 8, 9})
-}
