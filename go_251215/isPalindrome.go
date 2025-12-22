@@ -2,7 +2,7 @@ package main
 
 import "strings"
 
-func isPalindrome(s string) bool {
+func isPalindromeString(s string) bool {
 	s = strings.ToLower(s)
 	left, right := 0, len(s)-1
 	for left < right {
