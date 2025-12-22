@@ -10,11 +10,11 @@ package main
  */
 func averageOfLevels(root *TreeNode) []float64 {
 	averageOfLevelsDatas = make([]averageOfLevelsData, 0)
-	recursiveAverageOfLevels(root, 0)
+	AverageOfLevelsRecursive(root, 0)
 	return toAns(averageOfLevelsDatas)
 }
 
-func recursiveAverageOfLevels(node *TreeNode, level int) {
+func AverageOfLevelsRecursive(node *TreeNode, level int) {
 	if node == nil {
 		return
 	}
@@ -24,8 +24,8 @@ func recursiveAverageOfLevels(node *TreeNode, level int) {
 	}
 	averageOfLevelsDatas[level].cnt += 1
 	averageOfLevelsDatas[level].sum += node.Val
-	recursiveAverageOfLevels(node.Left, level+1)
-	recursiveAverageOfLevels(node.Right, level+1)
+	AverageOfLevelsRecursive(node.Left, level+1)
+	AverageOfLevelsRecursive(node.Right, level+1)
 }
 
 func toAns(datas []averageOfLevelsData) []float64 {
