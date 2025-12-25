@@ -1,5 +1,8 @@
 package main
 
+import "fmt"
+
 func main() {
-	strStr("a", "a")
+	ans := myPow(2, 10)
+	fmt.Println(ans)
 }
