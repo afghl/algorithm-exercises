@@ -1,6 +1,6 @@
 package main
 
-var max int
+var maxans int
 
 func maxDepth(root *TreeNode) int {
 	if root == nil {
