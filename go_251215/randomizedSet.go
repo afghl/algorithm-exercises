@@ -8,9 +8,9 @@ type RandomizedSet struct {
 	arr []int
 }
 
-func Constructor() RandomizedSet {
-	return RandomizedSet{data: make(map[int]int), arr: make([]int, 0)}
-}
+// func Constructor() RandomizedSet {
+// 	return RandomizedSet{data: make(map[int]int), arr: make([]int, 0)}
+// }
 
 func (s *RandomizedSet) Insert(val int) bool {
 	if _, ok := s.data[val]; ok {

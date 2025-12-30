@@ -1,6 +1,27 @@
 package main
 
-func rotate(matrix [][]int) {
+func rotate(nums []int, k int) {
+	//空间复杂度为 O(1) 的 原地 算法解决
+	if len(nums) == 0 {
+		return
+	}
+	if k > len(nums) {
+		k = k % len(nums)
+	}
+	// 两次翻转
+	reverse := func(nums []int, l, r int) {
+		for l < r {
+			nums[l], nums[r] = nums[r], nums[l]
+			l++
+			r--
+		}
+	}
+	reverse(nums, 0, len(nums)-1)
+	reverse(nums, 0, k-1)
+	reverse(nums, k, len(nums)-1)
+}
+
+func rotatematrix(matrix [][]int) {
 	// 旋转其实就是横竖坐标互换一下，但是这里重点是原地旋转。
 	// 这里有技巧...先转置，再左右翻转
 	n := len(matrix)
