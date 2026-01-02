@@ -4,7 +4,9 @@ func main() {
 	// l := 4,2,1,3
 
 	// sortList(getList([]int{4, 2, 1, 3}))
-	jump([]int{1, 2})
+	// jump([]int{1, 2})
+	// combine(4, 2)
+	hIndex([]int{0, 1, 3, 5, 6})
 }
 func getList(arr []int) *ListNode {
 	head := &ListNode{}
